@@ -11,7 +11,7 @@ using UnityEngine.Playables;
 namespace AntonioHR.AnimationHelpers
 {
     [RequireComponent(typeof(Animator))]
-    public class AnimationQueuePlayable : MonoBehaviour
+    public class AnimationQueuePlayable : MonoBehaviour, IAnimationClipSource
     {
         [SerializeField]
         private AnimationClip[] clips;
@@ -44,6 +44,15 @@ namespace AntonioHR.AnimationHelpers
         private void OnNewClip()
         {
             Debug.Log("New Clip!");
+        }
+
+        void IAnimationClipSource.GetAnimationClips(List<AnimationClip> results)
+        {
+            foreach (var clip in clips)
+            {
+                if (clip != null)
+                    results.Add(clip);
+            }
         }
     }
 }

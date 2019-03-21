@@ -9,7 +9,7 @@ using UnityEngine.Playables;
 namespace AntonioHR.AnimationHelpers
 {
     [RequireComponent(typeof(Animator))]
-    public class AnimationPlayer : MonoBehaviour
+    public class AnimationPlayer : MonoBehaviour, IAnimationClipSource
     {
         [SerializeField]
         private AnimationClip clip;
@@ -40,6 +40,12 @@ namespace AntonioHR.AnimationHelpers
         private void OnDestroy()
         {
             playableGraph.Destroy();
+        }
+
+        public void GetAnimationClips(List<AnimationClip> results)
+        {
+            if(clip != null)
+                results.Add(clip);
         }
     }
 }
